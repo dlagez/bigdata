@@ -6,14 +6,15 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 # 1.读取数据
-X = scio.loadmat("/Volumes/roczhang/download/data/112/T32data.mat")['testData']
-y = scio.loadmat("/Volumes/roczhang/download/data/112/T32testlabel.mat")['testlabel']
+X_norm = scio.loadmat("/Volumes/roczhang/download/data/2071/T32data.mat")['DATA']
+y = scio.loadmat("/Volumes/roczhang/download/data/2071/T32label.mat")['label']
 
-print(X.shape)
+
+print(X_norm.shape)
 print(y.shape)
 
 # 2.归一化 将每一列的特征归一化
-X_norm = preprocessing.normalize(X, norm='l2', axis=0)  # axis=0 竖着规范每个特征
+# X_norm = preprocessing.normalize(X, norm='l2', axis=0)  # axis=0 竖着规范每个特征
 
 # 3.主成分分析，选取三个主成分
 pca = dp.PCA(n_components=3)
@@ -49,7 +50,7 @@ zero_norm = np.array(zero)
 print(zero_norm.shape)
 
 # 8.画图
-azim = 80
+azim = -20
 elev = 15
 
 fig = plt.figure()
