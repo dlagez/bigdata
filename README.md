@@ -14,3 +14,18 @@
 
 代码：[点我跳转](https://github.com/dlagez/bigdata/blob/master/demo1_analysis_plt/demo2_analysis_plt.py)
 
+
+
+conda环境：使用的是mac m1 Miniforge
+
+```bash
+// 环境信息
+matplotlib                3.4.3
+numpy                     1.21.2
+pandas                    1.3.3           
+python                    3.8.12          
+scikit-learn              0.24.2           
+scipy                     1.7.0            
+seaborn                   0.11.2            
+```
+
