@@ -1,10 +1,11 @@
 import os
 import re
 from gensim import corpora, models
-from gensim.similarities import Similarity
 
+
+# 小曾老师的数据，10/25发来的
 # 判断属于哪一类主图
-dir = '/Users/roczhang/Downloads/2016/'
+dir = '/Users/roczhang/Downloads/data_29/'
 
 # 1.读取文件夹里面的文件
 files = os.listdir(dir)
@@ -25,6 +26,7 @@ for file in files:
 print(len(strs))
 
 
+
 import jieba
 
 strs_word = []
@@ -41,35 +43,7 @@ dictionary = corpora.Dictionary(strs_word)
 corpus = [dictionary.doc2bow(text) for text in strs_word]
 print(corpus)
 
-# 生成模型
-model = models.LsiModel(corpus, id2word=dictionary, num_topics=3)
 
-vectorized_corpus = model[corpus]
-print(list(vectorized_corpus))
-
-
-
-
-
-
-# 测试数据
-test_data = ['很多城市的污水防治没有完全落实，存在很多的污水防治问题']
-test_cut = jieba.cut(test_data)
-test_corpus = [dictionary.doc2bow(test_data)]
-
-test_result = model[test_corpus]
-
-
-
-from gensim.test.utils import common_corpus, common_dictionary, get_tmpfile
-from gensim.models import LsiModel
-list(common_dictionary)
-model = LsiModel(common_corpus[:3], id2word=common_dictionary)  # train model
-vector = model[common_corpus[4]]  # apply model to BoW document
-model.add_documents(common_corpus[4:])  # update model with new documents
-tmp_fname = get_tmpfile("lsi.model")
-model.save(tmp_fname)  # save model
-loaded_model = LsiModel.load(tmp_fname)  # load model
 
 
 
