@@ -6,11 +6,11 @@
 
 结果：
 
-<img src="README.assets/image-20210923135846213.png" alt="image-20210923135846213" style="zoom: 67%;" />
+<img src="https://github.com/dlagez/bigdata/blob/master/README.assets/image-20210923135846213.png?raw=true" alt="image-20210923135846213.png" style="zoom:50%;" />
 
 代码：[点我跳转](https://github.com/dlagez/bigdata/blob/master/demo1_analysis_plt/demo1_analysis_plt.py)    笔记：[点我跳转](https://github.com/dlagez/java-note-mac/blob/master/python/%E5%B0%8F%E5%AE%9E%E9%AA%8C/1.%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90%26%E7%94%BB%E5%9B%BE.md)
 
-<img src="README.assets/image-20210923161628631.png" alt="image-20210923161628631" style="zoom:67%;" />
+<img src="https://github.com/dlagez/bigdata/blob/master/README.assets/image-20210923161628631.png?raw=true" alt="image-20210923161628631.png" style="zoom:50%;" />
 
 代码：[点我跳转](https://github.com/dlagez/bigdata/blob/master/demo1_analysis_plt/demo2_analysis_plt.py)
 
@@ -18,7 +18,7 @@
 
 数据：有八个文本文件：
 
-<img src="README.assets/image-20211008125300926.png" alt="image-20211008125300926" style="zoom: 33%;" />
+<img src="https://github.com/dlagez/bigdata/blob/master/README.assets/image-20211008125300926.png?raw=true" alt="image-20211008125300926.png" style="zoom:67%;" />
 
 里面的内容是这个样子的：
 
@@ -45,7 +45,13 @@ lines = re.sub('[^\u4e00-\u9fa5]+', '', lines)
 
 
 
+### 实验三：生成词云图
 
+数据：
+
+<img src="https://cdn.jsdelivr.net/gh/dlagez/img@master/image-20220104191310663.png" alt="image-20220104191310663" style="zoom: 33%;" />
+
+一个文件夹的数据，需要将这些`txt`文件合并到一个问价夹：
 
 
 
@@ -61,4 +67,8 @@ scikit-learn              0.24.2
 scipy                     1.7.0            
 seaborn                   0.11.2            
 ```
+
+
+
+
 
