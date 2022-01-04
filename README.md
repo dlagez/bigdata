@@ -51,7 +51,13 @@ lines = re.sub('[^\u4e00-\u9fa5]+', '', lines)
 
 <img src="https://cdn.jsdelivr.net/gh/dlagez/img@master/image-20220104191310663.png" alt="image-20220104191310663" style="zoom: 33%;" />
 
-一个文件夹的数据，需要将这些`txt`文件合并到一个问价夹：
+一个文件夹的数据，需要将这些`txt`文件合并到一个文件[代码](https://github.com/dlagez/bigdata/blob/master/demo2_wordCloud/merge_files.py)：
+
+文件长这个样子：
+
+<img src="https://cdn.jsdelivr.net/gh/dlagez/img@master/image-20220104192007110.png" alt="image-20220104192007110" style="zoom: 33%;" />
+
+使用jieba分词[代码](https://github.com/dlagez/bigdata/blob/master/demo2_wordCloud/demo.py)，然后使用这些词生成词云图即可。
 
 
 
