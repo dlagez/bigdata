@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt#绘图库
+import matplotlib.pyplot as plt
 import jieba
 from wordcloud import WordCloud
 import imageio
