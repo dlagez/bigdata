@@ -24,23 +24,24 @@ for file in files:
         strs.append(temp)
 print(len(strs))
 
-# 把所有文本分词，并放入strs_word里面
+# 把所有文本分词，并放入strsList里面
 strList = []
 # 分词
 for i in strs:
     temp = jieba.cut(i, use_paddle=True)
     strList.append(list(temp))
 print(strList)
+'的' in strList[0]
 
 # 读取停用词
-stopWords = open('/Volumes/roczhang/WHPU/zen/词频图/停用词表.txt')
-
+stopWordsFile = open('/Volumes/roczhang/WHPU/zen/词频图/停用词表.txt')
+stopWords = [line.strip() for line in stopWordsFile.readlines()]
 
 # 除去停用词
 def CutWithStopWord(strList, stopWord):
     cutList = []
     for word in strList:
-        if not (word in stopWord) and len(word) > 1:
+        if word not in stopWord and len(word) > 1:
             cutList.append(word)
     return cutList
 
@@ -57,9 +58,16 @@ def StatTopNWords(words, N):
     return wordListNTop
 
 # 将去除了停用词的词放入WordList里面
-WordList = CutWithStopWord(strList, stopWords)
-# wordListNTop = StatTopNWords(WordList, 100) # 这个方法只能处理一位列表，不能处理二维列表
+# WordList = CutWithStopWord(strList, stopWords)
+WordList = []
+for word in strList:
+    if word not in stopWords:
+        WordList.append(word)
 
+
+# wordListNTop = StatTopNWords(WordList, 100) # 这个方法只能处理一位列表，不能处理二维列表
+'的' in WordList[0]
+'和' in WordList[0]
 # 找出每篇文章频率最高的词
 result = []
 for i in WordList:
@@ -77,3 +85,12 @@ for i in range(len(result)):
         output.write(' ')
     output.write('\n\n')  # 每写完一行数据之后按两次回撤键
 output.close()
+
+# 将所有文件合并, 然后求频率最高的词
+all_word = [i for item in WordList for i in item]
+StatTopNWords(all_word, 100)
+
+test = ['的', 'aaa']
+for word in test:
+    if word not in stopWords and len(word) > 1:
+        print(word)
