@@ -3,8 +3,6 @@ import re
 from gensim import corpora, models
 
 
-# 小曾老师的数据，10/25发来的
-# 判断属于哪一类主图
 dir = '/Volumes/roczhang/WHPU/zen/政策文本txt/'
 
 # 1.读取文件夹里面的文件
