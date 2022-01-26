@@ -9,7 +9,7 @@ stopwords = [line.strip() for line in
              open(r'C:\roczhang\WHPU\zen\词频图\停用词表.txt',
                   encoding='UTF-8').readlines()]
 # 读入文本数据
-fp = open(r'C:\roczhang\WHPU\zen\2022 1 90\merged.txt','r',encoding='utf-8')
+fp = open(r'C:\roczhang\WHPU\zen\2022 1 9\merged.txt','r',encoding='utf-8')
 content = fp.read()
 # print(content)
 #分词
@@ -23,6 +23,8 @@ for word in words:
         else:
             data[word]=1
 # print(data)
+"的" in stopwords
+"的" in data.keys()
 
 
 
@@ -36,6 +38,7 @@ for i in range(20):
     # print(hist[i])
     print('{:<10}{:>5}'.format(hist[i][0],hist[i][1]))#左对齐10，右对齐5个长度
 
+data.keys()
 
 result = ' '.join(data)
 img = imageio.imread(r"C:\roczhang\WHPU\zen\img\cycle.jpg")
@@ -52,7 +55,7 @@ wc = WordCloud(
 )
 wc.generate(result)
 
-wc.to_file(r'C:\roczhang\WHPU\zen\img\wordcloud2.png')#保存图片
+wc.to_file(r'C:\roczhang\WHPU\zen\img\2022 1 9.png')#保存图片
 #显示图片
 plt.figure('政府工作报告')
 plt.imshow(wc)
