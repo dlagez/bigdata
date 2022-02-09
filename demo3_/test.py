@@ -8,7 +8,7 @@ with open('/Volumes/roczhang/temp/list.txt', 'w') as f:
         f.write(i+'\n')
 
 
-file = open('/Volumes/roczhang/temp/list.txt')
+file = open(r'C:\roczhang\WHPU\zen\合并350.txt', 'r', encoding='utf-8')
 lines = file.readlines()
 for line in lines:
     line = line.strip('\n')
@@ -18,3 +18,4 @@ read_line = []
 for line in lines:
     line = line.strip('\n')
     read_line.append(line)
+

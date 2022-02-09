@@ -1,12 +1,14 @@
 '''
 @brief: 统计字数和词频
 在laptop上跑的代码，给了我一个词汇表1.txt文件。这个文件里面的词作为目标词。
-代码已修改，可以直接改文件名即可。关键词文件：分立
+代码已修改，可以直接改文件名即可。关键词文件：合并。
 '''
 import os
 import re
 import jieba
 from docx import Document
+
+
 
 def makeid(Path):
     rmv = ['文档放这里', '/', '.docx']
@@ -42,7 +44,7 @@ def cut_sent(para):
     # 很多规则中会考虑分号;，但是这里我把它忽略不计，破折号、英文双引号等同样忽略，需要的再做些简单调整即可。
     return para.split("\n")
 
-def SplitWd(txt,wd_id):
+def SplitWd(txt,wd_id,key_list):
     words = jieba.lcut(txt)
     # 词频分析操作
     dic = {}
@@ -54,15 +56,15 @@ def SplitWd(txt,wd_id):
                 dic[word]=1
     #报告全文词频总数
     kw_num = len(dic)#关键词个数
-    kw_sum = sum(dic.values())#词频总数
+    kw_sum = sum(dic.values()) # 总词数
     # 统计与环境相关词汇出现的频次
-    key_list = []
-    with open(r'C:\roczhang\WHPU\zen\分立350.txt', 'r', encoding='utf-8') as f:
-        lines = f.readlines()
-        for line in lines:
-            if line != '\n':
-                line = line.strip('\n')
-                key_list.append(line)
+    # key_list = []
+    # with open(r'C:\roczhang\WHPU\zen\合并350.txt', 'r', encoding='utf-8') as f:
+    #     lines = f.readlines()
+    #     for line in lines:
+    #         if line != '\n':
+    #             line = line.strip('\n')
+    #             key_list.append(line)
     # key_list = ['生态', '保护', '环境', '环境保护', '生态环境', '污染', '排放', '防治', '资源', '自然资源', '监测', '水', '治理', '污染物', '绿色', '环保', '环境保护部', '督察', '红线', '大气污染', '水资源', '损害', '整治', '大气', '土壤污染', '排污', '预警', '自然', '健康', '土壤环境', '环境质量', '节能', '环境监测', '水源', '耕地', '土地', '生态系统', '地下水', '清洁']
     nums = []
     for kw in key_list:
@@ -79,24 +81,21 @@ def SplitWd(txt,wd_id):
         for key in key_list:
             if key in sent:
                 key_sents.append(sent)
-    key_sents = ''.join(key_sents)
+                break
+    key_sents = ''.join(key_sents)  # 核心字数
 
+    # 核心字数（无符号）
     key_sents_u = unsign(key_sents)
-    txt_u = unsign(txt)
 
-    with open(r'词汇词频分析_分立.csv','a', encoding='utf-8') as fp:
+    txt_u = unsign(txt)  # 总字数（无符号）
+
+    with open(r'词汇词频分析_分立_city.csv', 'a', encoding='utf-8') as fp:
         fp.write("%s," % wd_id)
         for num in nums:
             fp.write("%s," % num)
+        #                              ['总词数','核心字数（无符号）','总字数（无符号）','核心字数','总字数']
         fp.write('%s,%s,%s,%s,%s \n' % (kw_sum, len(key_sents_u),len(txt_u), len(key_sents),len(txt)))
-        # fp.write('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'
-        #          '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s \n'
-        #          % (wd_id, nums[0], nums[1], nums[2], nums[3],nums[4], nums[5], nums[6], nums[7],nums[8], nums[9],
-        #             nums[10], nums[11],nums[12], nums[13], nums[14], nums[15],nums[16], nums[17], nums[18], nums[19],
-        #             nums[20], nums[21], nums[22], nums[23],nums[24],nums[25], nums[26], nums[27], nums[28],nums[29],
-        #             nums[30], nums[31], nums[32],nums[33], nums[34], nums[35], nums[36],nums[37], nums[38], kw_sum,
-        #             len(key_sents_u),len(txt_u), len(key_sents),len(txt)))
-        #
+
 
 def Readfl(Path):
     try:
@@ -114,10 +113,18 @@ def Readfl(Path):
     return text, makeid(Path)
 
 def main():
-    base = r'C:\roczhang\WHPU\zen\政策文本'
+    base = r'C:\roczhang\WHPU\zen\文档放这里'
     col_list = []
     col_list.append('文件名')
-    with open(r'C:\roczhang\WHPU\zen\合并350.txt', 'r', encoding='utf-8') as f:
+    key_list = []
+    with open(r'C:\roczhang\WHPU\zen\分立350.txt', 'r', encoding='utf-8') as f:
+        lines = f.readlines()
+        for line in lines:
+            if line != '\n':
+                line = line.strip('\n')
+                key_list.append(line)
+
+    with open(r'C:\roczhang\WHPU\zen\分立350.txt', 'r', encoding='utf-8') as f:
         lines = f.readlines()
         for line in lines:
             if line != '\n':
@@ -125,12 +132,16 @@ def main():
                 col_list.append(line)
     temp = ['总词数','核心字数（无符号）','总字数（无符号）','核心字数','总字数']
     col_list.extend(temp)
-    # col_list =['文件名','生态', '保护', '环境', '环境保护', '生态环境', '污染', '排放', '防治', '资源', '自然资源', '监测', '水',
-    #            '治理', '污染物', '绿色', '环保', '环境保护部', '督察', '红线', '大气污染', '水资源', '损害', '整治', '大气',
-    #            '土壤污染', '排污', '预警', '自然', '健康', '土壤环境', '环境质量', '节能', '环境监测', '水源', '耕地', '土地',
-    #            '生态系统', '地下水', '清洁','总词数','核心字数（无符号）','总字数（无符号）','核心字数','总字数']
+    # col_list =['文件名', '生态', '环境', '保护', '环境保护', '污染', '资源', '监测', '排放', '提高', '防治', '责任', '污染物',
+    # '治理', '绿色', '强化', '监管', '规划', '督察', '环境监测', '预警', '保障', '红线', '监督', '农业', '环境保护部', '流域',
+    # '水资源', '整治', '公园', '优化', '改善', '农村', '排污', '应急', '损害', '土壤环境', '大气', '水源', '能源', '环境质量',
+    # '改造', '节能', '土地', '耕地', '地下水', '管控', '违法', '维护', '水质', '示范', '用水', '煤炭', '海洋', '饮用水', '草原',
+    # '淘汰', '燃煤', '回收', '土壤', '责令', '节水', '污染源', '产能', '环境治理', '农产品', '水体', '河湖', '垃圾', '检查',
+    # '减排', '破坏', '环境污染', '养殖', '海域', '严格控制', '覆盖', '森林', '节约', '整改', '防控', '达标', '违反', '污水',
+    # '基础设施', '损害赔偿', '监督管理', '环境影响', '重金属', '畜禽', '生态环境', '绿色发展', '自然资源', '土地资源', '农业面污染防治',
+    # '自然资源资产离任审计', '自然资源资产负债表', '中央环境保护督察','总词数','核心字数（无符号）','总字数（无符号）','核心字数','总字数']
     #
-    with open(r'词汇词频分析_分立.csv','a', encoding='utf-8') as fp:
+    with open(r'词汇词频分析_分立_city.csv', 'a', encoding='utf-8') as fp:
         for line in col_list[:-1]:
             fp.write("%s," % line)
         fp.write("%s \n" % col_list[-1])
@@ -142,7 +153,7 @@ def main():
         content,wd_id = Readfl(Path)
         if content == 0:
             content = ''
-        SplitWd(content,wd_id) 
+        SplitWd(content,wd_id, key_list)
         # print(Path)
 
 
